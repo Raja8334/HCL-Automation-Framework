@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import config.ConfigReader;
+import factory.DriverFactory;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
@@ -16,15 +17,19 @@ public class BaseTest {
     @BeforeMethod
     public void setup() {
     	config = new ConfigReader();
+    	if(config.getBrowser().equalsIgnoreCase("chrome"))
+    	{
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        }
+    	driver.manage().window().maximize();
         driver.get(config.getUrl());
+        
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        DriverFactory.quitDriver();
     }
 }
 

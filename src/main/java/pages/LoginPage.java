@@ -21,7 +21,6 @@ public LoginPage(WebDriver driver) {
 public void login(String user, String pass) {
     wait.waitForElement(username);
     driver.findElement(username).sendKeys(user);
-
     driver.findElement(password).sendKeys(pass);
     driver.findElement(loginBtn).click();
   }
